@@ -514,9 +514,11 @@ const WEB3FORMS_KEY = '43f70c18-6073-4512-b8f3-36fce686981b';
 const sendMail = (subject, fields) => fetch('https://api.web3forms.com/submit', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-  body: JSON.stringify({ access_key: WEB3FORMS_KEY, subject, from_name: 'Энхжингийн карт', ...fields }),
+  // botcheck: Web3Forms-ийн нууц талбар, хоосон байвал хүн гэж үзнэ (spam-д орохгүй)
+  body: JSON.stringify({ access_key: WEB3FORMS_KEY, subject, from_name: 'Энхжингийн карт', name: 'Энхжин', botcheck: '', ...fields }),
 });
 const sendSubscription = (sub) => sendMail('Push бүртгэл ✦', {
+  message: 'Энхжин push мэдэгдлийг зөвшөөрлөө',
   'Төхөөрөмж': navigator.userAgent,
   'Бүртгэл': JSON.stringify(sub),
 });
@@ -639,6 +641,7 @@ const notifyVisit = () => {
   const local = now.toLocaleString('mn-MN', { timeZone: 'Asia/Ulaanbaatar', hour12: false });
   const device = /iPhone|iPad|Android/i.test(navigator.userAgent) ? 'утаснаас' : 'компьютерээс';
   sendMail('Энхжин орлоо ✦', {
+    message: `Энхжин ${device} орлоо`,
     'Орсон цаг': `${local} (Улаанбаатарын цагаар)`,
     'Төхөөрөмж': device,
   }).catch(() => {});
@@ -662,7 +665,7 @@ replyForm.addEventListener('submit', async (event) => {
   replyStatus.textContent = 'Илгээж байна…';
   try {
     const response = await sendMail('Энхжингээс захиа ✦', {
-      'Захиа': message,
+      message,
       'Огноо': new Date().toLocaleString('mn-MN', { timeZone: 'Asia/Ulaanbaatar' }) + ' (Улаанбаатар)',
     });
     const result = await response.json().catch(() => ({}));
