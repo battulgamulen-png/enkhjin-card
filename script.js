@@ -940,6 +940,7 @@ window.onYouTubeIframeAPIReady = () => {
     events: {
       onReady: () => {
         playerReady = true;
+        if (!pendingPlay && !isSongPlaying) songStatus.textContent = 'дарж тоглуулаарай';
         if (pendingPlay) {
           pendingPlay = false;
           playSong();
