@@ -1,0 +1,350 @@
+:root { --ink: #593f4a; --rose: #e86c88; --gold: #e9aa78; --tint: #fff1f3; --paper: #fff8f3; --bg: #fbe5e9; --glow1: #fff5cc; --glow2: #f8bdd0; --card: #fffdfb; }
+/* Хуудас бүрийн өнгө */
+body[data-theme="zodiac"] { --rose: #9b7bd8; --gold: #d9b45a; --tint: #f3eefc; --bg: #ebe4f7; --glow1: #fff3c4; --glow2: #cdbdf0; --card: #fdfcff; }
+body[data-theme="farewell"] { --rose: #c25b9c; --gold: #e9aa78; --tint: #f9e9f3; --bg: #f3e0ec; --glow1: #fff1c9; --glow2: #e6b3d4; --card: #fffbfd; }
+body[data-theme="reply"] { --rose: #4fae8a; --gold: #e0b35a; --tint: #e9f6ef; --bg: #e1f1e8; --glow1: #fff6c8; --glow2: #bfe6d1; --card: #fbfefc; }
+body[data-theme="weather"] { --rose: #4f9bd9; --gold: var(--gold); --tint: #eaf3fb; --bg: #e2eefa; --glow1: #fff8c9; --glow2: #b9d8f3; --card: #fbfdff; }
+* { box-sizing: border-box; }
+html { overflow-x: hidden; }
+body {
+  min-height: 100vh; min-height: 100dvh; margin: 0; display: grid; place-items: center; overflow-x: hidden;
+  color: var(--ink); font-family: Manrope, sans-serif;
+  background: radial-gradient(circle at 20% 18%, var(--glow1) 0 3%, transparent 18%), radial-gradient(circle at 82% 80%, var(--glow2) 0 3%, transparent 22%), var(--bg);
+  transition: background-color .9s ease;
+}
+body::before, body::after { content: ""; position: fixed; width: 280px; height: 280px; border-radius: 50%; border: 1px solid #ffffffa8; }
+body::before { left: -105px; bottom: -85px; } body::after { right: -90px; top: -100px; }
+.card { position: relative; width: min(92vw, 620px); padding: 64px 52px 36px; text-align: center; background: var(--card); border: 1px solid #fff; border-radius: 28px; box-shadow: 0 24px 70px #a3557030; }
+.card::before { content:""; position:absolute; inset:12px; pointer-events:none; border:1px dashed #efadc061; border-radius:20px; }
+.sparkles { position: absolute; top: 26px; left: 50%; transform: translateX(-50%); color: var(--gold); font-size: 15px; white-space: nowrap; }
+.star-field { position: absolute; inset: 18px 20px; pointer-events: none; color: var(--gold); }
+.star-field span { position: absolute; text-shadow: 0 2px 8px var(--gold)66; animation: twinkle 2.2s ease-in-out infinite; }
+.star-field span:nth-child(1) { top: 4px; left: 17%; font-size: 17px; }.star-field span:nth-child(2) { top: 9%; right: 15%; font-size: 12px; animation-delay: .4s; }.star-field span:nth-child(3) { top: 29%; left: 2%; font-size: 13px; animation-delay: .8s; }.star-field span:nth-child(4) { top: 39%; right: 1%; font-size: 18px; animation-delay: 1.1s; }.star-field span:nth-child(5) { top: 58%; left: 4%; font-size: 22px; animation-delay: .3s; }.star-field span:nth-child(6) { top: 69%; right: 4%; font-size: 14px; animation-delay: 1.4s; }.star-field span:nth-child(7) { bottom: 8%; left: 14%; font-size: 12px; animation-delay: .6s; }.star-field span:nth-child(8) { bottom: 3%; right: 18%; font-size: 17px; animation-delay: 1.7s; }.star-field span:nth-child(9) { bottom: 19%; left: 1%; font-size: 18px; animation-delay: 1s; }.star-field span:nth-child(10) { bottom: 25%; right: 0; font-size: 11px; animation-delay: .2s; }.star-field span:nth-child(11) { top: 18%; left: 7%; font-size: 11px; animation-delay: 1.5s; }.star-field span:nth-child(12) { top: 18%; right: 6%; font-size: 14px; animation-delay: .9s; }
+.secret-star { position: absolute; z-index: 2; top: 22%; right: 11%; width: 30px; height: 30px; padding: 0; color: var(--gold); background: transparent; font-size: 20px; animation: twinkle 2.2s ease-in-out infinite; }
+.secret-note { position: absolute; z-index: 3; right: 23px; bottom: 74px; max-width: 215px; padding: 11px 14px; border: 1px solid #f4d8ac; border-radius: 14px; background: #fff8e9; color: #9b7053; font-family: Caveat, cursive; font-size: 20px; line-height: 1.05; box-shadow: 0 10px 22px #a46c4b24; animation: noteIn .3s ease both; }
+.tiny-heart { position:absolute; top: 48px; right: 58px; color: var(--rose); transform: rotate(15deg); font-size:26px; }
+.eyebrow { margin: 0 0 16px; color:#bd788c; font-size: 11px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; }
+h1, h2 { margin: 0; font-family: Caveat, cursive; font-weight: 700; line-height: .98; }
+h1 { font-size: clamp(42px, 8vw, 62px); } h1 em, h2 em { color: var(--rose); font-style: normal; }
+.note { max-width: 410px; margin: 25px auto 30px; font-size: 14px; line-height: 1.9; color: #765c66; }
+.welcome h1 { font-size: clamp(36px, 6.8vw, 54px); }
+.welcome .note { max-width: 385px; }
+.continue { display: inline-grid; width: 58px; height: 44px; margin-top: 30px; padding: 0; place-items: center; border-radius: 16px; font-size: 28px; line-height: 1; }
+.page-actions { display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 28px; }
+.page-actions .continue { margin-top: 0; }
+.zodiac, .farewell, .weather, .reply { position: relative; animation: pageIn .5s cubic-bezier(.2,.75,.3,1) both; }
+/* Шөнийн горим (18:00–06:00, хөтчийн цагаар) */
+body.night { --ink: #e9e7f7; --card: #1c2142; --tint: #272c55; --bg: #11152f; --glow1: #2a2f66; --glow2: #46305f; --gold: #f0c66a; }
+body.night[data-theme="welcome"] { --rose: #f28ca3; } body.night[data-theme="zodiac"] { --rose: #b59cf2; } body.night[data-theme="farewell"] { --rose: #e28fcb; } body.night[data-theme="weather"] { --rose: #7cb8ee; } body.night[data-theme="reply"] { --rose: #6fcfa6; }
+body.night-switching, body.night-switching .card, body.night-switching .horoscope-card, body.night-switching .music-player, body.night-switching .reply-form textarea, body.night-switching .back, body.night-switching .star-ratings div, body.night-switching .night-sky { transition-duration: 2.5s; transition-property: background-color, color, border-color, box-shadow, opacity, background; }
+body.night::before, body.night::after { border-color: #ffffff1a; }
+body.night .card { border-color: #2a3060; box-shadow: 0 24px 70px #00000066; }
+body.night .card::before { border-color: #8a93c644; }
+body.night .horoscope-card, body.night .star-ratings div { border-color: #2f3666; background: #222850; color: #cfd0e6; }
+body.night .horoscope-card.personal { background: var(--tint); }
+body.night .horoscope-title, body.night .weather-place, body.night .now-playing, body.night .star-ratings > div > span, body.night .weather-hours .hour-time, body.night .weather-days .day-name, body.night .playlist-nav { color: #b9a6e0; }
+body.night .note, body.night .weather-meta, body.night .weather-hours div, body.night .weather-days, body.night .weather-desc span, body.night .song-placeholder, body.night .reply-done p, body.night .reply-status, body.night .lucky { color: #b4b6d6; }
+body.night .weather-meta strong, body.night .weather-hours strong, body.night .weather-desc strong, body.night .track-info strong, body.night .lucky strong { color: #eceaf8; }
+body.night .final-note, body.night .player-note, body.night .weather-outfit, body.night .secret-note { color: #c9b8ea; }
+body.night .secret-note { background: #272c55; border-color: #3a4078; }
+body.night .music-player { border-color: #2f3666; background: linear-gradient(135deg, #222850, #1e2448); box-shadow: 0 10px 25px #00000055; }
+body.night .progress { background: #343b6a; }
+body.night .back { color: #d8d4f0; background: var(--tint); }
+body.night .playlist-button { background: var(--tint); color: #d8d4f0; }
+body.night .page-dots span { background: #3f4677; } body.night .page-dots .active { background: var(--rose); }
+body.night .weather-hours { border-color: #3a407855; }
+body.night .reply-form textarea { border-color: #2f3666; background: #222850; color: var(--ink); }
+body.night .reply-form textarea::placeholder { color: #8085b0; }
+body.night .weather.is-night { background: none; }
+body.night .weather-sky .cloud, body.night .weather-sky .cloud::before, body.night .weather-sky .cloud::after { background: #3a4078; }
+body.night .weather-sky .fog { background: #3a4078; }
+body.night .photo-frame { background: #f3f0f8; box-shadow: 0 11px 24px #00000066; }
+body.night .record .play-icon { background: #ffffffe6; color: #1c2142; }
+.night-sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0; transition: opacity 2.5s ease; }
+body.night .night-sky { opacity: 1; }
+.night-sky .moon { position: absolute; top: 7%; right: 8%; width: 74px; height: 74px; border-radius: 50%; background: #f6ebc8; box-shadow: -18px -10px 0 8px #11152f inset, 0 0 40px 14px #f6ebc833, 0 0 90px 40px #f6ebc81a; }
+.night-sky .nstar { position: absolute; color: #d9d4f3; font-size: var(--s); left: var(--x); top: var(--y); animation: twinkle 3s ease-in-out infinite; animation-delay: var(--delay); }
+.card { z-index: 1; }
+/* Swipe үед карт дагаж хөдөлнө */
+.card.dragging { transition: none; }
+/* Хазайлтын parallax */
+:root { --px: 0; --py: 0; }
+.star-field, .constellation, .night-sky .moon { transform: translate(calc(var(--px) * 10px), calc(var(--py) * 10px)); transition: transform .25s ease-out; }
+.night-sky .nstar { margin-left: calc(var(--px) * 18px); margin-top: calc(var(--py) * 18px); transition: margin .25s ease-out; }
+.weather-sky { translate: calc(var(--px) * 8px) calc(var(--py) * 8px); transition: translate .25s ease-out; }
+/* Кодын дараах intro */
+.intro { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; background: var(--bg); overflow: hidden; animation: fadeIn .4s ease both; }
+.intro.leaving { animation: introOut .7s ease both; }
+.intro-name { font-family: Caveat, cursive; font-size: clamp(64px, 14vw, 120px); font-weight: 700; color: var(--rose); letter-spacing: 14px; opacity: 0; animation: nameIn 1.6s cubic-bezier(.2,.75,.3,1) .5s both; }
+.intro .istar { position: absolute; left: 50%; top: 50%; color: var(--gold); font-size: var(--s); opacity: 0; animation: gather 1.5s cubic-bezier(.2,.75,.3,1) both; animation-delay: var(--delay); }
+@keyframes gather { 0% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(.4); } 30% { opacity: 1; } 100% { opacity: 0; transform: translate(0, 0) scale(1.2); } }
+@keyframes nameIn { 0% { opacity: 0; letter-spacing: 30px; transform: scale(.9); } 100% { opacity: 1; letter-spacing: 4px; transform: none; } }
+@keyframes introOut { to { opacity: 0; transform: scale(1.04); } }
+/* Онцгой өдөр */
+.special-badge { display: inline-block; margin-bottom: 14px; padding: 6px 14px; border-radius: 999px; background: var(--tint); color: var(--rose); font-size: 11px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; animation: noteIn .5s ease both; }
+.cake { position: relative; width: 74px; height: 58px; margin: 0 auto 14px; }
+.cake .layer { position: absolute; left: 50%; transform: translateX(-50%); border-radius: 8px; background: linear-gradient(#f8c9d6, #e9a2b8); box-shadow: inset 0 -6px 0 #d98ba3; }
+.cake .layer.b { bottom: 0; width: 74px; height: 24px; } .cake .layer.m { bottom: 20px; width: 56px; height: 20px; } .cake .layer.t { bottom: 36px; width: 38px; height: 16px; }
+.cake .candle { position: absolute; left: 50%; bottom: 50px; width: 6px; height: 14px; margin-left: -3px; border-radius: 2px; background: #fff3d6; }
+.cake .flame { position: absolute; left: 50%; bottom: 63px; width: 8px; height: 12px; margin-left: -4px; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; background: radial-gradient(#fff6b5, #f4a460); box-shadow: 0 0 12px 4px #f4a46066; animation: flicker .5s ease-in-out infinite alternate; }
+@keyframes flicker { from { transform: scaleX(.9) translateY(0); } to { transform: scaleX(1.1) translateY(-2px); } }
+.snowfall { position: fixed; inset: 0; z-index: 5; pointer-events: none; overflow: hidden; }
+.snowfall span { position: absolute; top: -20px; left: var(--x); color: #ffffffee; font-size: var(--s); text-shadow: 0 0 6px #9fc4e8; animation: snowFall var(--d) linear infinite; animation-delay: var(--delay); }
+/* Story зураг товч */
+.share-button { margin: 14px auto 0; padding: 9px 16px; border-radius: 999px; background: var(--tint); color: var(--rose); font-size: 12px; font-weight: 700; }
+.share-button[disabled] { opacity: .6; cursor: wait; transform: none; }
+body.night .share-button, body.night .special-badge { background: var(--tint); }
+/* Жижиг муур (mascot) */
+.mascot { position: fixed; right: 18px; bottom: 16px; z-index: 15; width: 96px; height: 104px; padding: 0; background: none; border: 0; border-radius: 0; cursor: pointer; animation: mascotIn .8s cubic-bezier(.2,.75,.3,1) both; transition: none; }
+.mascot:hover { transform: none; }
+.mascot.hidden { display: none; }
+.mascot .cat { position: absolute; left: 10px; bottom: 0; width: 76px; height: 70px; transform-origin: 50% 100%; }
+.mascot .body { position: absolute; left: 10px; bottom: 0; width: 56px; height: 36px; border-radius: 28px 28px 22px 22px; background: #fbf3ee; box-shadow: inset 0 -5px 0 #efd9cf, 0 6px 12px #593f4a1f; }
+.mascot .head { position: absolute; left: 6px; bottom: 24px; width: 64px; height: 50px; border-radius: 46% 46% 50% 50%; background: #fbf3ee; box-shadow: inset 0 -4px 0 #efd9cf, 0 6px 12px #593f4a1f; transform-origin: 50% 100%; }
+.mascot .ear { position: absolute; top: -12px; width: 0; height: 0; border-left: 11px solid transparent; border-right: 11px solid transparent; border-bottom: 20px solid #fbf3ee; }
+.mascot .ear::after { content: ""; position: absolute; left: -6px; top: 7px; border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 11px solid #f4b6c7; }
+.mascot .ear.l { left: 6px; transform: rotate(-12deg); } .mascot .ear.r { right: 6px; transform: rotate(12deg); }
+.mascot .eye { position: absolute; top: 19px; width: 7px; height: 9px; border-radius: 50%; background: #593f4a; animation: blink 4.5s ease-in-out infinite; }
+.mascot .eye.l { left: 18px; } .mascot .eye.r { right: 18px; animation-delay: .1s; }
+.mascot .blush { position: absolute; top: 29px; width: 10px; height: 5px; border-radius: 50%; background: #f8b7c6; opacity: .8; }
+.mascot .blush.l { left: 10px; } .mascot .blush.r { right: 10px; }
+.mascot .nose { position: absolute; top: 29px; left: 50%; width: 5px; height: 4px; margin-left: -2.5px; border-radius: 50%; background: #e86c88; }
+.mascot .mouth { position: absolute; top: 29px; left: 50%; transform: translateX(-50%); color: #8c6a76; font-size: 10px; line-height: 1; font-family: Manrope, sans-serif; }
+.mascot .paw { position: absolute; right: 2px; bottom: 8px; width: 16px; height: 16px; border-radius: 50%; background: #fbf3ee; box-shadow: inset 0 -3px 0 #efd9cf; transform-origin: 20% 80%; }
+.mascot .tail { position: absolute; left: -6px; bottom: 6px; width: 26px; height: 9px; border-radius: 9px; background: #efd9cf; transform-origin: 100% 50%; animation: tailSway 2.4s ease-in-out infinite; }
+.mascot.waving .paw { animation: wave .5s ease-in-out 5; }
+.mascot.dancing .cat { animation: dance .55s ease-in-out infinite alternate; }
+.mascot.dancing .head { animation: headBop .55s ease-in-out infinite alternate; }
+.mascot.sleeping .eye { height: 2px; top: 23px; border-radius: 2px; animation: none; }
+.mascot.sleeping .mouth { opacity: 0; }
+.mascot.sleeping .cat { animation: breatheCat 3s ease-in-out infinite; }
+.mascot .zz { position: absolute; right: 2px; top: 6px; display: none; color: #b9a6e0; font-family: Caveat, cursive; font-weight: 700; }
+.mascot.sleeping .zz { display: block; }
+.mascot .zz i { position: absolute; right: 0; font-style: normal; font-size: 16px; animation: zFloat 2.4s ease-in-out infinite; }
+.mascot .zz i:nth-child(2) { right: 12px; font-size: 12px; animation-delay: 1.2s; }
+.mascot .umbrella { position: absolute; left: 14px; top: -14px; display: none; width: 56px; height: 30px; transform: rotate(-8deg); }
+.mascot.rainy .umbrella { display: block; }
+.mascot .umbrella::before { content: ""; position: absolute; left: 0; top: 0; width: 56px; height: 28px; border-radius: 56px 56px 0 0; background: repeating-linear-gradient(90deg, var(--rose) 0 14px, #ffd6e0 14px 28px); box-shadow: 0 3px 6px #593f4a22; }
+.mascot .umbrella i { position: absolute; left: 27px; top: 26px; width: 2px; height: 46px; background: #8c6a76; border-radius: 2px; }
+.mascot.bouncing .cat { animation: catBounce .6s cubic-bezier(.2,.75,.3,1); }
+.mascot .bubble { position: absolute; right: 74px; bottom: 82px; display: none; width: max-content; max-width: 210px; padding: 8px 12px; border-radius: 14px 14px 4px 14px; background: #fff; color: var(--ink); font-family: Caveat, cursive; font-size: 18px; line-height: 1.1; white-space: normal; text-align: left; box-shadow: 0 8px 18px #593f4a26; animation: noteIn .3s ease both; }
+.mascot .bubble.show { display: block; }
+body.night .mascot .bubble { background: #272c55; color: #eceaf8; }
+body.night .mascot .body, body.night .mascot .head, body.night .mascot .ear, body.night .mascot .paw { filter: brightness(.92); }
+@keyframes mascotIn { from { transform: translateY(120px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(.1); } }
+@keyframes tailSway { 0%, 100% { transform: rotate(-14deg); } 50% { transform: rotate(16deg); } }
+@keyframes wave { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-40deg) translate(-3px, -8px); } }
+@keyframes dance { from { transform: translateY(0) rotate(-6deg); } to { transform: translateY(-8px) rotate(6deg); } }
+@keyframes headBop { from { transform: rotate(-8deg); } to { transform: rotate(8deg); } }
+@keyframes breatheCat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+@keyframes zFloat { 0% { opacity: 0; transform: translate(0, 6px); } 30% { opacity: 1; } 100% { opacity: 0; transform: translate(6px, -18px); } }
+@keyframes catBounce { 0% { transform: scale(1); } 30% { transform: scale(1.12, .88); } 60% { transform: scale(.95, 1.08) translateY(-8px); } 100% { transform: none; } }
+@media (max-width: 600px) { .mascot { right: 6px; bottom: 6px; transform: scale(.74); transform-origin: 100% 100%; } .mascot:hover { transform: scale(.74); } @keyframes mascotIn { from { transform: scale(.74) translateY(120px); opacity: 0; } to { transform: scale(.74); opacity: 1; } } }
+/* Хуудас эргэх шилжилт */
+.card { transition: transform .32s ease-in, opacity .32s ease-in, background-color .9s ease; }
+.card.flip-out { transform: perspective(1200px) rotateY(-70deg); opacity: .4; }
+.card.flip-out.backward { transform: perspective(1200px) rotateY(70deg); }
+.card.flip-in { animation: flipIn .5s cubic-bezier(.2,.75,.3,1) both; }
+.card.flip-in.backward { animation-name: flipInBack; }
+/* Typewriter гарчиг */
+.typewriter .word { display: inline-block; white-space: nowrap; }
+.typewriter .char { display: inline-block; opacity: 0; animation: charIn .32s ease both; animation-delay: calc(var(--i) * 60ms); }
+/* Од, зүрх унах */
+.confetti-piece { position: fixed; top: -30px; z-index: 50; pointer-events: none; font-size: var(--s); color: var(--c); left: var(--x); animation: fall var(--d) ease-in forwards; }
+/* Зурхайн хуудасны элементүүд дараалан гарч ирнэ */
+.zodiac h2, .zodiac .horoscope-card, .zodiac .page-actions { animation: riseIn .55s cubic-bezier(.2,.75,.3,1) both; }
+.zodiac h2 { animation-delay: .12s; } .zodiac .horoscope-card:nth-child(1) { animation-delay: .24s; } .zodiac .horoscope-card:nth-child(2) { animation-delay: .36s; } .zodiac .page-actions { animation-delay: .46s; }
+/* Одон буух */
+.shooting-star { position: absolute; top: 8%; left: 60%; width: 90px; height: 2px; border-radius: 2px; background: linear-gradient(90deg, var(--gold), transparent); transform: rotate(35deg); opacity: 0; pointer-events: none; animation: shoot 9s linear infinite; animation-delay: 2s; }
+.shooting-star::before { content: ""; position: absolute; left: -3px; top: -2px; width: 6px; height: 6px; border-radius: 50%; background: #fff3d6; box-shadow: 0 0 10px 3px var(--gold)aa; }
+.shooting-star.second { top: 40%; left: 5%; width: 70px; animation-duration: 13s; animation-delay: 7s; }
+@keyframes shoot { 0% { opacity: 0; transform: rotate(35deg) translateX(0); } 3% { opacity: 1; } 12% { opacity: 0; transform: rotate(35deg) translateX(220px); } 100% { opacity: 0; transform: rotate(35deg) translateX(220px); } }
+/* Оддын үнэлгээ, азын тоо */
+.star-ratings { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; max-width: 440px; margin: 18px auto 0; animation: riseIn .55s cubic-bezier(.2,.75,.3,1) both; animation-delay: .2s; }
+.star-ratings div { padding: 10px 6px; border: 1px solid #f4dce3; border-radius: 14px; background: #fff9f7; }
+.star-ratings > div > span { display: block; margin-bottom: 3px; color: #bd788c; font-size: 10px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; }
+.star-ratings strong { color: var(--gold); font-size: 14px; letter-spacing: 0; white-space: nowrap; }
+.star-ratings strong .off { display: inline; color: #ead5d9; }
+.lucky { margin: 10px 0 0; color: #9d7580; font-size: 12.5px; animation: riseIn .55s cubic-bezier(.2,.75,.3,1) both; animation-delay: .3s; }
+.lucky strong { color: #593f4a; }
+.lucky-dot { display: inline-block; width: 11px; height: 11px; margin: 0 5px -1px 0; border-radius: 50%; border: 1px solid #0000001a; background: var(--lucky, var(--rose)); }
+/* Зурхайн текст мөр мөрөөр */
+.horoscope-card .line { display: inline; opacity: 0; animation: fadeIn .6s ease both; animation-delay: calc(.35s + var(--i) * .22s); }
+/* Хумхын одны зураг */
+.constellation { position: absolute; top: -18px; right: 8px; width: 92px; pointer-events: none; opacity: .75; }
+.constellation .lines line { stroke: var(--gold); stroke-width: 1; stroke-dasharray: 3 3; opacity: .6; }
+.constellation .stars circle { fill: var(--gold); animation: twinkle 2.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.constellation .stars circle:nth-child(2) { animation-delay: .5s; } .constellation .stars circle:nth-child(3) { animation-delay: 1s; } .constellation .stars circle:nth-child(4) { animation-delay: .3s; } .constellation .stars circle:nth-child(5) { animation-delay: 1.4s; }
+/* Дуу тоглох үед урсах нот */
+.float-note { position: absolute; bottom: 26%; z-index: 4; pointer-events: none; left: var(--x); color: var(--c); font-size: var(--s); animation: floatUp var(--d) ease-out forwards; }
+.final-note { margin: 18px auto 0; max-width: 360px; color: var(--rose); font-family: Caveat, cursive; font-size: 24px; line-height: 1.1; animation: noteIn .5s ease both; }
+.photo-frame { width: 196px; margin: 0 auto 20px; padding: 8px 8px 10px; background: #fff; box-shadow: 0 11px 24px #a3557040; transform: rotate(-3deg); cursor: pointer; transition: transform .35s cubic-bezier(.2,.75,.3,1); animation: fadeIn .5s ease both; }
+.photo-frame:hover, .photo-frame.flipped { transform: rotate(2deg) scale(1.03); }
+.photo-stack { position: relative; }
+.zodiac-photo-alt { position: absolute; inset: 0; opacity: 0; object-position: center 30%; transition: opacity .45s ease; }
+.photo-frame.flipped .zodiac-photo-alt { opacity: 1; }
+@media (hover: hover) { .photo-frame:hover .zodiac-photo-alt { opacity: 1; } }
+.zodiac-photo { display: block; width: 180px; height: 180px; object-fit: cover; object-position: center 38%; }
+.zodiac h2 { font-size: clamp(38px, 6.4vw, 50px); }
+.horoscope-details { display: grid; gap: 10px; max-width: 440px; margin: 22px auto 17px; text-align: left; }
+.horoscope-card { padding: 14px 16px; border: 1px solid #f4dce3; border-radius: 15px; background: #fff9f7; color: #765c66; font-size: 13px; line-height: 1.7; }
+.horoscope-card p { margin: 0; }.horoscope-card.personal { background: var(--tint); }
+.horoscope-title { margin-bottom: 6px !important; color: #bd788c; font-size: 11px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; }
+button { cursor:pointer; border:0; border-radius:999px; padding:12px 22px; font-family:Manrope,sans-serif; font-weight:700; transition: transform .2s, box-shadow .2s; }
+button:hover { transform: translateY(-2px); }.yes { color:white; background:var(--rose); box-shadow:0 8px 16px #d95f7a44; }.back { display:inline-grid; width:58px; height:44px; padding:0; place-items:center; border-radius:16px; color:#9d7580; background:var(--tint); font-size:26px; line-height:1; }.hidden { display:none; }
+.farewell h2 { margin: 8px 0 24px; font-size: clamp(42px, 7vw, 54px); }
+.star-mark { color: var(--gold); font-size: .5em; vertical-align: middle; }
+.music-icon { color: var(--gold); font-family: Caveat, cursive; font-size: 47px; line-height: 1; }
+.farewell-actions { margin-top: 25px; }
+.music-player { display: flex; align-items: center; gap: 17px; width: 100%; max-width: 420px; margin: 0 auto; padding: 17px; border: 1px solid #f2dbe2; border-radius: 20px; background: linear-gradient(135deg, var(--tint), var(--card)); text-align: left; box-shadow: 0 10px 25px #d98ba31c; }
+.record { display: grid; flex: 0 0 77px; width: 77px; height: 77px; place-items: center; border-radius: 50%; background: repeating-radial-gradient(circle, #593f4a 0 2px, #73515e 3px 4px); box-shadow: 0 5px 11px #593f4a36; animation: spin 6s linear infinite paused; }
+.music-player.is-playing .record { animation-play-state: running; }
+.music-player { position: relative; }
+.tonearm { position: absolute; top: 10px; left: 92px; width: 8px; height: 62px; transform-origin: 4px 4px; transform: rotate(20deg); transition: transform .8s cubic-bezier(.4,0,.2,1); z-index: 2; filter: drop-shadow(0 2px 3px #593f4a33); }
+.tonearm::before { content: ""; position: absolute; top: -6px; left: -6px; width: 20px; height: 20px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #d7b3bf, #9d7580); }
+.tonearm span { position: absolute; top: 8px; left: 1.5px; width: 5px; height: 52px; border-radius: 3px; background: linear-gradient(#b995a3, #7d5f6a); }
+.tonearm span::after { content: ""; position: absolute; bottom: -6px; left: -4px; width: 13px; height: 12px; border-radius: 3px; background: #593f4a; }
+.music-player.is-playing .tonearm { transform: rotate(-14deg); }
+.record { position: relative; overflow: hidden; transition: box-shadow .6s; }
+.music-player.is-playing .record { box-shadow: 0 6px 18px #593f4a55, 0 0 0 4px #ffffff66; }
+.record .album-art { position: absolute; left: 13px; top: 13px; width: calc(100% - 26px); height: calc(100% - 26px); border-radius: 50%; object-fit: cover; opacity: 0; transition: opacity .6s; }
+.record .album-art.loaded { opacity: .95; }
+.record .hole { position: absolute; left: 50%; top: 50%; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: #fff8f3; box-shadow: 0 0 0 3px #593f4a; }
+.record .play-icon { position: absolute; left: 50%; top: 50%; width: 30px; height: 30px; margin: -15px 0 0 -15px; display: grid; place-items: center; border-radius: 50%; background: #ffffffd9; color: var(--ink); font-size: 12px; line-height: 1; padding-left: 2px; box-shadow: 0 2px 8px #0003; transition: opacity .3s, transform .3s; animation: none; }
+.music-player.is-playing .play-icon { opacity: 0; transform: scale(.7); }
+.music-player:hover .play-icon { opacity: 1; transform: none; }
+.track-info { min-width: 0; flex: 1; }.now-playing { display: block; margin-bottom: 4px; color: #bd788c; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }.track-info strong { display: block; color: #593f4a; font-size: 14px; }.progress { height: 4px; margin: 12px 0 7px; overflow: hidden; border-radius: 99px; background: #ead5d9; }.progress span { display: block; width: 0; height: 100%; border-radius: inherit; background: var(--rose); }.song-placeholder { color: #a88a93; font-size: 11px; }
+.playlist-nav { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 10px; color: #a88a93; font-size: 11px; font-weight: 700; letter-spacing: 1px; }
+.playlist-button { width: 30px; height: 30px; padding: 0; border-radius: 50%; background: var(--tint); color: #9d7580; font-size: 20px; line-height: 1; }
+/* Дуу тоглох үед карт амьсгалах */
+.card.music-on { animation: breathe 7s ease-in-out infinite; }
+@keyframes breathe { 0%, 100% { background: var(--card); box-shadow: 0 24px 70px #a3557030; } 50% { background: var(--tint); box-shadow: 0 24px 80px #a3557045; } }
+.equalizer { display: flex; align-items: end; gap: 2px; height: 18px; margin: 5px 0 -3px; }.equalizer span { width: 3px; border-radius: 9px; background: var(--rose); animation: equalize .8s ease-in-out infinite alternate paused; }.music-player.is-playing .equalizer span { animation-play-state: running; }.equalizer span:nth-child(1) { height: 6px; animation-duration: .9s; }.equalizer span:nth-child(2) { height: 12px; animation-delay: .15s; animation-duration: .7s; }.equalizer span:nth-child(3) { height: 17px; animation-delay: .3s; animation-duration: 1s; }.equalizer span:nth-child(4) { height: 10px; animation-delay: .05s; animation-duration: .8s; }.equalizer span:nth-child(5) { height: 14px; animation-delay: .4s; animation-duration: .65s; }.equalizer span:nth-child(6) { height: 8px; animation-delay: .25s; animation-duration: .95s; }.equalizer span:nth-child(7) { height: 16px; animation-delay: .5s; animation-duration: .75s; }.equalizer span:nth-child(8) { height: 11px; animation-delay: .1s; animation-duration: .85s; }.equalizer span:nth-child(9) { height: 13px; animation-delay: .35s; animation-duration: .7s; }.equalizer span:nth-child(10) { height: 7px; animation-delay: .2s; animation-duration: 1.05s; }
+.youtube-player { position: absolute; top: 0; left: 0; width: 320px; height: 180px; border: 0; opacity: 0; pointer-events: none; clip-path: inset(50%); }
+.youtube-player.is-visible { position: static; display: block; width: 100%; max-width: 420px; height: auto; aspect-ratio: 16 / 9; margin: 12px auto 0; border-radius: 16px; opacity: 1; pointer-events: auto; clip-path: none; box-shadow: 0 10px 25px #a3557030; }
+.progress span { transition: width .4s linear; }
+.player-note { max-width: 380px; margin: 16px auto 0; color: #b07f8e; font-family: Caveat, cursive; font-size: 21px; line-height: 1.15; }
+.signature { margin: 18px 0 0; color:#c793a1; font-family:Caveat,cursive; font-size:19px; }
+/* Сарны үе шат */
+.moon-phase { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 12px 0 0; color: #9d7580; font-size: 12.5px; animation: riseIn .55s cubic-bezier(.2,.75,.3,1) both; animation-delay: .25s; }
+.moon-phase .moon-disc { position: relative; width: 26px; height: 26px; border-radius: 50%; background: #f4e7c3; box-shadow: 0 0 10px #f4e7c3aa; overflow: hidden; flex: 0 0 26px; }
+.moon-phase .moon-disc::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: #d9c6e6; transform: translateX(var(--shadow, 0)); }
+.moon-phase strong { color: #593f4a; }
+body.night .moon-phase { color: #b4b6d6; } body.night .moon-phase strong { color: #eceaf8; } body.night .moon-phase .moon-disc::after { background: #1c2142; }
+/* 4-р хуудас: цаг агаар */
+.weather-icon { color: var(--gold); font-size: 52px; line-height: 1; font-variant-emoji: text; }
+.weather h2 { margin-top: 6px; font-size: clamp(40px, 6.6vw, 52px); }
+.weather-place { margin: 10px 0 18px; color: #bd788c; font-size: 11px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; }
+.weather-note { max-width: 400px; margin: 0 auto 18px; color: #b07f8e; font-family: Caveat, cursive; font-size: 22px; line-height: 1.15; }
+.weather-now { display: flex; align-items: center; justify-content: center; gap: 18px; }
+.weather-temp { font-family: Caveat, cursive; font-size: 84px; line-height: 1; color: var(--rose); font-weight: 700; }
+.weather-temp .deg { font-family: Manrope, sans-serif; font-size: .42em; font-weight: 600; vertical-align: top; margin-left: 2px; }
+.weather-desc { text-align: left; }
+.weather-desc strong { display: block; color: #593f4a; font-size: 17px; }
+.weather-desc span { display: block; margin-top: 3px; color: #a88a93; font-size: 12.5px; }
+.weather .page-actions { margin-top: 22px; }
+.weather > *:not(.weather-sky) { position: relative; z-index: 1; }
+.weather-meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 14px; margin: 16px auto 0; color: #765c66; font-size: 12.5px; }
+.weather-meta span { white-space: nowrap; }
+.weather-meta strong { color: #593f4a; font-weight: 600; }
+.weather-outfit { max-width: 380px; margin: 14px auto 0; color: #b07f8e; font-family: Caveat, cursive; font-size: 21px; line-height: 1.15; }
+.weather-hours { display: flex; justify-content: flex-start; gap: 2px; max-width: 420px; margin: 18px auto 0; padding: 10px 6px; border-top: 1px dashed #efadc061; border-bottom: 1px dashed #efadc061; overflow-x: auto; scrollbar-width: none; }
+.weather-hours::-webkit-scrollbar { display: none; }
+.weather-hours div { flex: 0 0 52px; color: #765c66; font-size: 11px; }
+.weather-hours div:first-child { color: var(--rose); }
+.weather-hours .hour-time { display: block; font-size: 10px; font-weight: 700; letter-spacing: .3px; }
+.weather-hours .hour-icon { display: block; margin: 4px 0 2px; color: var(--gold); font-size: 17px; line-height: 1; font-variant-emoji: text; }
+.weather-hours strong { color: #593f4a; font-size: 13px; }
+.weather-days { display: flex; justify-content: center; gap: 26px; margin: 12px auto 0; color: #765c66; font-size: 12px; }
+.weather-days .day-name { display: block; font-weight: 700; color: #9d7580; font-size: 11px; }
+.weather-days .day-icon { display: block; margin: 3px 0 1px; color: var(--gold); font-size: 20px; line-height: 1; font-variant-emoji: text; }
+/* Цаг агаарын нөхцөлөөс хамаарсан амьд дэвсгэр */
+.weather-sky { position: absolute; inset: -12px 0; overflow: hidden; pointer-events: none; z-index: 0; border-radius: 24px; }
+.weather-sky .sun { position: absolute; top: -60px; right: -40px; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle, #ffe7b5 0 22%, transparent 60%); }
+.weather-sky .rays { position: absolute; top: -100px; right: -80px; width: 340px; height: 340px; border-radius: 50%; background: repeating-conic-gradient(from 0deg, #ffd9a0 0 5deg, transparent 5deg 16deg); -webkit-mask: radial-gradient(circle, transparent 28%, #000 32%, transparent 70%); mask: radial-gradient(circle, transparent 28%, #000 32%, transparent 70%); opacity: .45; animation: spin 48s linear infinite; }
+.weather-sky .cloud { position: absolute; width: 110px; height: 34px; border-radius: 999px; background: #fff; opacity: .5; box-shadow: 0 6px 18px #d9a3b820; animation: drift var(--d) linear infinite; animation-delay: var(--delay); top: var(--y); left: -140px; }
+.weather-sky .cloud::before, .weather-sky .cloud::after { content: ""; position: absolute; bottom: 8px; border-radius: 50%; background: #fff; }
+.weather-sky .cloud::before { left: 18px; width: 46px; height: 46px; } .weather-sky .cloud::after { left: 52px; width: 36px; height: 36px; }
+.weather-sky .drop { position: absolute; top: -20px; left: var(--x); width: 2px; height: 14px; border-radius: 2px; background: #9fc4e8; opacity: .55; animation: rainFall var(--d) linear infinite; animation-delay: var(--delay); }
+.weather-sky .flake { position: absolute; top: -20px; left: var(--x); color: #cfe3f5; font-size: var(--s); animation: snowFall var(--d) linear infinite; animation-delay: var(--delay); }
+.weather-sky .fog { position: absolute; left: -10%; width: 120%; height: 40px; border-radius: 999px; background: #fff; opacity: .55; filter: blur(8px); top: var(--y); animation: fogDrift var(--d) ease-in-out infinite alternate; }
+.weather-sky .moon { position: absolute; top: 14px; right: 26px; width: 54px; height: 54px; border-radius: 50%; background: #f4e7c3; box-shadow: -14px -8px 0 6px #fbf5e4 inset, 0 0 30px #f4e7c399; opacity: .8; }
+.weather-sky .night-star { position: absolute; color: #c9b8ea; font-size: var(--s); top: var(--y); left: var(--x); animation: twinkle 2.6s ease-in-out infinite; animation-delay: var(--delay); }
+.weather.is-night { background: linear-gradient(180deg, #ece6fa 0%, transparent 60%); border-radius: 22px; }
+@keyframes drift { from { transform: translateX(0); } to { transform: translateX(calc(100% + 720px)); } }
+@keyframes rainFall { to { transform: translateY(560px); } }
+@keyframes snowFall { 0% { transform: translate(0, 0) rotate(0); } 50% { transform: translate(14px, 280px) rotate(120deg); } 100% { transform: translate(-8px, 560px) rotate(240deg); } }
+@keyframes fogDrift { from { transform: translateX(-20px); } to { transform: translateX(30px); } }
+/* 5-р хуудас: хариу бичих */
+.reply-icon { color: var(--gold); font-size: 44px; line-height: 1; }
+.reply h2 { margin-top: 6px; font-size: clamp(40px, 6.6vw, 52px); }
+.reply-form { max-width: 420px; margin: 18px auto 0; }
+.mood-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-bottom: 12px; }
+.mood { padding: 7px 13px; border: 1px solid #f4dce3; border-radius: 999px; background: #fff; color: #9d7580; font-size: 12px; font-weight: 600; transition: background .2s, color .2s, transform .2s; }
+.mood.selected { background: var(--rose); color: #fff; border-color: transparent; }
+.reply-form textarea { display: block; width: 100%; padding: 14px 16px; border: 1px solid #f4dce3; border-radius: 16px; background: #fff; color: var(--ink); font-family: Manrope, sans-serif; font-size: 14px; line-height: 1.6; resize: vertical; outline: none; transition: border-color .2s, box-shadow .2s; }
+.reply-form textarea:focus { border-color: var(--rose); box-shadow: 0 0 0 3px #4fae8a22; }
+.reply-form textarea::placeholder { color: #c3a9b1; }
+.send { margin-top: 12px; font-size: 14px; }
+.send[disabled] { opacity: .6; cursor: wait; transform: none; }
+.reply-status { min-height: 18px; margin: 10px 0 0; color: #b07f8e; font-size: 12.5px; }
+.reply-done { animation: noteIn .5s ease both; }
+.reply-done .plane { color: var(--rose); font-size: 46px; line-height: 1; animation: fly 1.6s ease-out both; }
+.reply-done h3 { margin: 8px 0 6px; font-family: Caveat, cursive; font-size: 40px; color: var(--rose); }
+.back.again { width: auto; padding: 0 18px; font-size: 13px; }
+.reply-done p { margin: 0 0 14px; color: #765c66; font-size: 13px; }
+@keyframes fly { 0% { transform: translate(-40px, 30px) rotate(-10deg); opacity: 0; } 60% { opacity: 1; } 100% { transform: none; opacity: 1; } }
+.swipe-hint { margin: 26px 0 0; color: #c3a9b1; font-size: 12px; font-weight: 600; letter-spacing: .5px; animation: hintPulse 2.4s ease-in-out infinite; }
+.swipe-hint.hidden { display: none; }
+@keyframes hintPulse { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+.card.dragging { user-select: none; }
+body.night .page-dots { margin-top: 24px; }
+.farewell .page-dots, .weather .page-dots, .reply .page-dots, .zodiac .page-dots { margin-top: 26px; }
+.page-menu { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 400px; margin: 20px auto 0; }
+.menu-button { padding: 9px 15px; border-radius: 999px; background: var(--tint); color: var(--rose); font-size: 12.5px; font-weight: 700; font-variant-emoji: text; }
+.menu-button:hover { background: var(--rose); color: #fff; }
+body.night .menu-button { color: #e9d9f5; } body.night .menu-button:hover { color: #fff; }
+.page-dots { display: flex; justify-content: center; gap: 7px; margin-top: 24px; }.page-dots span { width: 6px; height: 6px; border-radius: 50%; background: #efc6d0; transition: width .25s, background .25s; }.page-dots .active { width: 20px; border-radius: 99px; background: var(--rose); }
+@keyframes charIn { from { opacity:0; transform:translateY(8px) rotate(-4deg); } to { opacity:1; transform:none; } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes riseIn { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
+@keyframes flipIn { from { transform:perspective(1200px) rotateY(70deg); opacity:.4; } to { transform:none; opacity:1; } }
+@keyframes flipInBack { from { transform:perspective(1200px) rotateY(-70deg); opacity:.4; } to { transform:none; opacity:1; } }
+@keyframes fall { 0% { transform:translateY(0) rotate(0); opacity:1; } 100% { transform:translateY(105vh) rotate(var(--r)); opacity:.15; } }
+@keyframes floatUp { 0% { opacity:0; transform:translateY(0) rotate(0); } 15% { opacity:1; } 100% { opacity:0; transform:translateY(-240px) translateX(var(--dx)) rotate(25deg); } }
+@keyframes pageIn { from { opacity:0; transform:translateY(14px) scale(.975); } to { opacity:1; transform:none; } } @keyframes noteIn { from { opacity:0; transform:translateY(6px) scale(.95); } to { opacity:1; transform:none; } } @keyframes twinkle { 50% { opacity:.35; transform:scale(.72) rotate(18deg); } } @keyframes spin { to { transform:rotate(360deg); } } @keyframes equalize { to { transform:scaleY(.38); } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0ms !important; transition-duration: .01ms !important; } }
+@media (max-width: 600px) {
+  .constellation { top: -12px; right: 4px; width: 66px; }
+  body { display: grid; min-height: 100vh; min-height: 100dvh; padding: 12px 0 96px; overflow-y: auto; }
+  .card { width: calc(100vw - 24px); min-height: 0; margin: 0; padding: 48px 20px 28px; border-radius: 24px; }
+  .card::before { inset: 9px; border-radius: 17px; }
+  .welcome { min-height: 0; }
+  .welcome h1 { font-size: clamp(30px, 9.2vw, 40px); }
+  .photo-frame { width: 150px; margin-bottom: 16px; padding: 6px; }.zodiac-photo { width: 138px; height: 138px; }
+  .zodiac h2 { font-size: clamp(30px, 8.6vw, 40px); }
+  .farewell h2 { font-size: clamp(30px, 8.4vw, 38px); }
+  .horoscope-details { margin-top: 18px; gap: 8px; }
+  .horoscope-card { padding: 12px 14px; font-size: 12.5px; line-height: 1.62; }
+  .page-actions { flex-direction: row; margin-top: 22px; }
+  .page-actions .back, .page-actions .continue { width: 54px; height: 42px; }
+  .music-player { gap: 13px; padding: 14px; }
+  .tonearm { left: 76px; top: 8px; height: 52px; }
+  .tonearm span { height: 42px; }
+  .star-ratings { gap: 6px; } .star-ratings strong { font-size: 13px; }
+  .weather h2 { font-size: clamp(32px, 9vw, 40px); }
+  .weather-temp { font-size: 68px; }
+  .weather-days { gap: 18px; }
+  .record { flex-basis: 64px; width: 64px; height: 64px; }
+  .record .album-art { left: 10px; top: 10px; width: calc(100% - 20px); height: calc(100% - 20px); }
+  .record .play-icon { width: 26px; height: 26px; margin: -13px 0 0 -13px; font-size: 10px; }
+}
+@media (max-width: 380px), (max-height: 700px) and (max-width: 600px) {
+  .card { padding: 34px 18px 22px; }
+  .photo-frame { width: 128px; margin-bottom: 10px; }.zodiac-photo { width: 116px; height: 116px; }
+  .zodiac h2 { font-size: 30px; }
+  .farewell h2 { font-size: 29px; }
+  .horoscope-details { margin-top: 13px; }
+  .horoscope-card { padding: 10px 12px; font-size: 12px; }
+}

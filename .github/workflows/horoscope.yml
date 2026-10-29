@@ -1,0 +1,35 @@
+name: Өдрийн зурхай шинэчлэх
+
+on:
+  schedule:
+    # Улаанбаатарын цагаар 05:00, 09:00, 13:00, 17:00 (UTC 21:00, 01:00, 05:00, 09:00)
+    - cron: "0 21 * * *"
+    - cron: "0 1 * * *"
+    - cron: "0 5 * * *"
+    - cron: "0 9 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Зурхай татах
+        run: python fetch_horoscope.py
+      - name: Өөрчлөлт байвал commit хийх
+        run: |
+          if git diff --quiet -- horoscope.json; then
+            echo "Шинэ өөрчлөлт алга"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add horoscope.json
+          git commit -m "Зурхай шинэчлэв $(date -u +%Y-%m-%d)"
+          git push

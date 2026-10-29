@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="mn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Энхжингийн өдөр бүрийн зурхай</title>
+    <meta name="description" content="Хумхын ордны өдөр бүрийн зурхай, өдөр бүр шинэчлэгдэнэ" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="icon-192.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Зурхай" />
+    <meta name="theme-color" content="#e86c88" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Энхжингийн өдөр бүрийн зурхай ♒" />
+    <meta property="og:description" content="Хумхын ордны өдөр бүрийн зурхай, өдөр бүр шинэчлэгдэнэ" />
+    <meta property="og:image" content="https://battulgamulen-png.github.io/enkhjin-card/zurhai-preview.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="https://battulgamulen-png.github.io/enkhjin-card/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css?v=31" />
+  </head>
+  <body data-theme="welcome">
+    <div class="night-sky" id="nightSky" aria-hidden="true"><div class="moon"></div></div>
+    <button type="button" class="mascot hidden" id="mascot" aria-label="Жижиг муур">
+      <span class="bubble" id="mascotBubble"></span>
+      <span class="zz" aria-hidden="true"><i>z</i><i>z</i></span>
+      <span class="umbrella" aria-hidden="true"><i></i></span>
+      <span class="cat" aria-hidden="true">
+        <span class="tail"></span>
+        <span class="body"></span>
+        <span class="head">
+          <span class="ear l"></span><span class="ear r"></span>
+          <span class="eye l"></span><span class="eye r"></span>
+          <span class="blush l"></span><span class="blush r"></span>
+          <span class="nose"></span>
+          <span class="mouth">ω</span>
+        </span>
+        <span class="paw"></span>
+      </span>
+    </button>
+    <main class="card" id="card">
+      <section class="welcome" id="welcome">
+        <div class="star-field" aria-hidden="true">
+          <span>✦</span><span>✧</span><span>★</span><span>✦</span><span>·</span><span>✧</span>
+          <span>★</span><span>✦</span><span>·</span><span>✧</span><span>✦</span><span>★</span>
+        </div>
+        <button class="secret-star" id="secretStar" aria-label="Нууц мессежийг нээх">✦</button>
+        <div class="special-badge hidden" id="specialBadge"></div>
+        <h1 class="typewriter" id="welcomeTitle">Энхжин хүүхдэд<br />өглөө, өдөр, оройн<br /><em>мэээээнд!</em></h1>
+        <div class="secret-note hidden" id="secretNote" aria-live="polite">P.S. Өнөөдөр заавал инээмсэглээрэй ✦</div>
+        <div class="page-dots" aria-label="1-р хуудас, нийт 5">
+          <span class="active"></span><span></span><span></span><span></span><span></span>
+        </div>
+        <nav class="page-menu" aria-label="Хуудас сонгох">
+          <button type="button" class="menu-button" data-page="zodiac">Зурхай ✦</button>
+          <button type="button" class="menu-button" data-page="farewell">Дуу ♫</button>
+          <button type="button" class="menu-button" data-page="weather">Цаг агаар ☀︎</button>
+          <button type="button" class="menu-button" data-page="reply">Бичвэр ✉</button>
+        </nav>
+      </section>
+
+      <section class="zodiac hidden" id="zodiac">
+        <svg class="constellation" viewBox="0 0 120 120" aria-hidden="true">
+          <g class="lines"><line x1="14" y1="40" x2="30" y2="30" /><line x1="30" y1="30" x2="48" y2="22" /><line x1="48" y1="22" x2="62" y2="30" /><line x1="62" y1="30" x2="72" y2="20" /><line x1="72" y1="20" x2="84" y2="28" /><line x1="84" y1="28" x2="96" y2="18" /><line x1="62" y1="30" x2="66" y2="52" /><line x1="66" y1="52" x2="56" y2="72" /><line x1="56" y1="72" x2="74" y2="86" /><line x1="74" y1="86" x2="60" y2="104" /></g>
+          <g class="stars"><circle cx="14" cy="40" r="2.2" /><circle cx="30" cy="30" r="2.8" /><circle cx="48" cy="22" r="3.4" /><circle cx="62" cy="30" r="3" /><circle cx="72" cy="20" r="2.4" /><circle cx="84" cy="28" r="2.6" /><circle cx="96" cy="18" r="2.2" /><circle cx="66" cy="52" r="2.6" /><circle cx="56" cy="72" r="2.8" /><circle cx="74" cy="86" r="3.2" /><circle cx="60" cy="104" r="2.4" /></g>
+        </svg>
+        <span class="shooting-star" aria-hidden="true"></span>
+        <span class="shooting-star second" aria-hidden="true"></span>
+        <figure class="photo-frame" id="photoFrame" title="Дарж зургийг солино">
+          <div class="photo-stack">
+            <img class="zodiac-photo" src="enkhjin-photo.jpg" alt="Энхжин" />
+            <img class="zodiac-photo zodiac-photo-alt" src="enkhjin-photo-2.jpg" alt="" aria-hidden="true" />
+          </div>
+        </figure>
+        <h2><em>Энхжингийн өнөөдрийн зурхайнд</em></h2>
+        <div class="star-ratings hidden" id="starRatings" aria-label="Оддын үнэлгээ">
+          <div><span>Ерөнхий</span><strong id="ratingOverall"></strong></div>
+          <div><span>Сэтгэл санаа</span><strong id="ratingMood"></strong></div>
+          <div><span>Амжилт</span><strong id="ratingSuccess"></strong></div>
+        </div>
+        <div class="moon-phase" id="moonPhase"></div>
+        <p class="lucky hidden" id="lucky">Азын тоо: <strong id="luckyNumber"></strong> · Азын өнгө: <span class="lucky-dot" id="luckyDot"></span><strong id="luckyColor"></strong></p>
+        <div class="horoscope-details">
+          <section class="horoscope-card">
+            <p class="horoscope-title" id="horoscopeTitle">Өнөөдрийн хувьд · 2026.09.23, Лхагва гараг</p>
+            <p id="horoscopeText">Өдөр өнгөрөх тусам нэгэн хэмнэлд амьдрах хэв маягаасаа татгалзаж, шинэчлэлт хийхээр зорих төлөвтэй. Гэхдээ хүчлэх хэрэггүй ч хойш тавивал үнэгүйдэхийг санаж, бодсоноо бодит болгоорой.</p>
+          </section>
+          <section class="horoscope-card personal">
+            <p class="horoscope-title">Одод юу гэж байна</p>
+            <p id="starText">Оддын зөвлөгөө: өнөөдөр дуртай зүйлээ идэж, дуртай дуугаа сонсож, өөртөө "сайн байна" гэж хэлээрэй. Одод тэгж хэлэхийг хүсч байна.</p>
+          </section>
+        </div>
+        <button type="button" class="share-button" id="shareButton">Story зураг хадгалах ✦</button>
+        <div class="page-dots" aria-label="2-р хуудас, нийт 5">
+          <span></span><span class="active"></span><span></span><span></span><span></span>
+        </div>
+      </section>
+
+      <section class="farewell hidden" id="farewell">
+        <div class="music-icon" aria-hidden="true">♫</div>
+        <h2>Өглөө зурхайгаа харвал<br /><em>гоё дуу сонсож эхлүүлэг гээд</em><br />энэ хэсгийг орууллаа&nbsp;<span class="star-mark">✦</span></h2>
+        <button class="music-player" id="musicPlayer" type="button" aria-label="Дуу тоглуулах">
+          <div class="record" aria-hidden="true">
+            <img class="album-art" id="albumArt" src="" alt="" />
+            <span class="hole"></span>
+            <span class="play-icon" id="playIcon">▶</span>
+          </div>
+          <div class="tonearm" aria-hidden="true"><span></span></div>
+          <div class="track-info">
+            <span class="now-playing">now playing</span>
+            <strong id="songTitle">Bilguun (The Pips) — Гүн цэнхэр нүд</strong>
+            <div class="equalizer" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+            <div class="progress"><span id="progressBar"></span></div>
+            <span class="song-placeholder" id="songStatus">дарж тоглуулаарай</span>
+          </div>
+        </button>
+        <div class="playlist-nav" aria-label="Дуу солих">
+          <button class="playlist-button" id="prevSong" type="button" aria-label="Өмнөх дуу">‹</button>
+          <span id="playlistIndex">1 / 5</span>
+          <button class="playlist-button" id="nextSong" type="button" aria-label="Дараагийн дуу">›</button>
+        </div>
+        <p class="player-note">Чой гэдэг залууд хэлээд дуртай дуугаа энд оруулж болно шүү хаха ✦</p>
+        <iframe class="youtube-player" id="youtubePlayer" title="Плейлист" src="https://www.youtube.com/embed/qjW5YMM8RBA?enablejsapi=1&playsinline=1&rel=0" allow="autoplay; encrypted-media" referrerpolicy="strict-origin-when-cross-origin" tabindex="-1" aria-hidden="true"></iframe>
+        <p class="final-note hidden" id="finalNote" aria-live="polite">P.S. Инээмсэглэл чинь хамгийн сайхан нь шүү ✦</p>
+        <div class="page-dots" aria-label="3-р хуудас, нийт 5">
+          <span></span><span></span><span class="active"></span><span></span><span></span>
+        </div>
+      </section>
+
+      <section class="weather hidden" id="weather">
+        <div class="weather-sky" id="weatherSky" aria-hidden="true"></div>
+        <div class="weather-icon" id="weatherIcon" aria-hidden="true">☁︎</div>
+        <h2><em>Улаанбаатарын</em><br />өнөөдрийн цаг агаар</h2>
+        <p class="weather-place">Ulaanbaatar, Mongolia · <span id="weatherTime">ачаалж байна…</span></p>
+        <div class="weather-now">
+          <div class="weather-temp" id="weatherTemp">--°</div>
+          <div class="weather-desc">
+            <strong id="weatherDesc">Цаг агаар татаж байна</strong>
+            <span id="weatherFeels"></span>
+          </div>
+        </div>
+        <p class="weather-meta" id="weatherMeta"></p>
+        <p class="weather-outfit" id="weatherOutfit"></p>
+        <div class="weather-hours" id="weatherHours" aria-label="Ойрын цагууд"></div>
+        <div class="weather-days" id="weatherDays" aria-label="Ойрын өдрүүд"></div>
+        <div class="page-dots" aria-label="4-р хуудас, нийт 5">
+          <span></span><span></span><span></span><span class="active"></span><span></span>
+        </div>
+      </section>
+      <section class="reply hidden" id="reply">
+        <div class="reply-icon" aria-hidden="true">✉</div>
+        <h2><em>Өнөөдөр</em><br />ямар байна?</h2>
+        <form class="reply-form" id="replyForm" novalidate>
+          <textarea id="replyText" name="message" rows="5" maxlength="1500" placeholder="Энд бичээрэй…" aria-label="Захиа"></textarea>
+          <button type="submit" class="yes send" id="sendButton">Илгээх ✦</button>
+          <p class="reply-status" id="replyStatus" aria-live="polite"></p>
+        </form>
+        <div class="reply-done hidden" id="replyDone">
+          <div class="plane" aria-hidden="true">✈</div>
+          <h3>Илгээгдлээ ✦</h3>
+          <p>Чой удахгүй уншина. Дахиад бичмээр бол доороос.</p>
+          <button type="button" class="back again" id="replyAgainButton">Дахин бичих</button>
+        </div>
+        <div class="page-dots" aria-label="5-р хуудас, нийт 5">
+          <span></span><span></span><span></span><span></span><span class="active"></span>
+        </div>
+      </section>
+    </main>
+    <script src="script.js?v=49"></script>
+  </body>
+</html>
