@@ -510,7 +510,7 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js').then((reg) => { swRegistration = reg; }).catch(() => {});
 }
 // Имэйл илгээх: Web3Forms-оор Чойн имэйл рүү очно (түлхүүр нь Чойн имэйлтэй холбоотой)
-const WEB3FORMS_KEY = '43f70c18-6073-4512-b8f3-36fce686981b';
+const WEB3FORMS_KEY = '48ba73a6-66fb-4235-8a1a-2c3950089553';
 const sendMail = (subject, fields) => fetch('https://api.web3forms.com/submit', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
