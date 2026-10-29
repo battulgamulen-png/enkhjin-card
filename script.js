@@ -509,16 +509,16 @@ let swRegistration = null;
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js').then((reg) => { swRegistration = reg; }).catch(() => {});
 }
-const sendSubscription = (sub) => fetch('https://formsubmit.co/ajax/choijanstandoloonjin1@gmail.com', {
+// Имэйл илгээх: Web3Forms-оор Чойн имэйл рүү очно (түлхүүр нь Чойн имэйлтэй холбоотой)
+const WEB3FORMS_KEY = '43f70c18-6073-4512-b8f3-36fce686981b';
+const sendMail = (subject, fields) => fetch('https://api.web3forms.com/submit', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-  body: JSON.stringify({
-    _subject: 'Push бүртгэл ✦',
-    _template: 'table',
-    _captcha: 'false',
-    'Төхөөрөмж': navigator.userAgent,
-    'Бүртгэл': JSON.stringify(sub),
-  }),
+  body: JSON.stringify({ access_key: WEB3FORMS_KEY, subject, from_name: 'Энхжингийн карт', ...fields }),
+});
+const sendSubscription = (sub) => sendMail('Push бүртгэл ✦', {
+  'Төхөөрөмж': navigator.userAgent,
+  'Бүртгэл': JSON.stringify(sub),
 });
 // Код зөв оруулмагц (хэрэглэгчийн товшилт) системийн "Allow" асуултыг шууд гаргана
 const enableNotifications = async () => {
@@ -638,21 +638,13 @@ const notifyVisit = () => {
   const now = new Date();
   const local = now.toLocaleString('mn-MN', { timeZone: 'Asia/Ulaanbaatar', hour12: false });
   const device = /iPhone|iPad|Android/i.test(navigator.userAgent) ? 'утаснаас' : 'компьютерээс';
-  fetch('https://formsubmit.co/ajax/choijanstandoloonjin1@gmail.com', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-    body: JSON.stringify({
-      _subject: 'Энхжин орлоо ✦',
-      _template: 'table',
-      _captcha: 'false',
-      'Орсон цаг': `${local} (Улаанбаатарын цагаар)`,
-      'Төхөөрөмж': device,
-    }),
+  sendMail('Энхжин орлоо ✦', {
+    'Орсон цаг': `${local} (Улаанбаатарын цагаар)`,
+    'Төхөөрөмж': device,
   }).catch(() => {});
 };
 
-// Хариу бичих: FormSubmit-ээр имэйл рүү илгээнэ
-const REPLY_ENDPOINT = 'https://formsubmit.co/ajax/choijanstandoloonjin1@gmail.com';
+// Хариу бичих: Web3Forms-оор имэйл рүү илгээнэ
 const replyForm = document.querySelector('#replyForm');
 const replyText = document.querySelector('#replyText');
 const replyStatus = document.querySelector('#replyStatus');
@@ -669,25 +661,16 @@ replyForm.addEventListener('submit', async (event) => {
   sendButton.disabled = true;
   replyStatus.textContent = 'Илгээж байна…';
   try {
-    const response = await fetch(REPLY_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({
-        _subject: 'Энхжингээс захиа ✦',
-        _template: 'table',
-        _captcha: 'false',
-        'Захиа': message,
-        'Огноо': new Date().toLocaleString('mn-MN', { timeZone: 'Asia/Ulaanbaatar' }) + ' (Улаанбаатар)',
-      }),
+    const response = await sendMail('Энхжингээс захиа ✦', {
+      'Захиа': message,
+      'Огноо': new Date().toLocaleString('mn-MN', { timeZone: 'Asia/Ulaanbaatar' }) + ' (Улаанбаатар)',
     });
     const result = await response.json().catch(() => ({}));
-    if (!response.ok || result.success === 'false' || result.success === false) throw new Error(result.message || response.status);
+    if (!response.ok || result.success !== true) throw new Error(result.message || response.status);
     replyForm.classList.add('hidden');
     replyDone.classList.remove('hidden');
   } catch (error) {
-    replyStatus.textContent = String(error.message).includes('Activation')
-      ? 'Форм хараахан идэвхжээгүй байна, Чой имэйлээ шалгаарай'
-      : 'Илгээж чадсангүй, интернэтээ шалгаад дахин дараарай';
+    replyStatus.textContent = 'Илгээж чадсангүй, интернэтээ шалгаад дахин дараарай';
   } finally {
     sendButton.disabled = false;
   }
