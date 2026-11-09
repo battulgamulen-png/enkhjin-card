@@ -23,7 +23,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=31" />
+    <link rel="stylesheet" href="style.css?v=32" />
   </head>
   <body data-theme="welcome">
     <div class="night-sky" id="nightSky" aria-hidden="true"><div class="moon"></div></div>
@@ -45,7 +45,21 @@
       </span>
     </button>
     <main class="card" id="card">
-      <section class="welcome" id="welcome">
+      <section class="lock" id="lock">
+        <div class="star-field" aria-hidden="true">
+          <span>✦</span><span>✧</span><span>★</span><span>✦</span><span>·</span><span>✧</span>
+          <span>★</span><span>✦</span><span>·</span><span>✧</span><span>✦</span><span>★</span>
+        </div>
+        <div class="lock-icon" aria-hidden="true">✦</div>
+        <h2>Нууц<br /><em>код</em></h2>
+        <p class="lock-hint">Чиний мэддэг 4 оронтой тоо</p>
+        <form class="lock-form" id="lockForm" novalidate>
+          <input class="code-input" id="codeInput" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="one-time-code" placeholder="••••" aria-label="4 оронтой код" />
+          <button type="submit" class="yes continue" id="unlockButton" aria-label="Нээх">→</button>
+        </form>
+        <p class="lock-status" id="lockStatus" aria-live="polite"></p>
+      </section>
+      <section class="welcome hidden" id="welcome">
         <div class="star-field" aria-hidden="true">
           <span>✦</span><span>✧</span><span>★</span><span>✦</span><span>·</span><span>✧</span>
           <span>★</span><span>✦</span><span>·</span><span>✧</span><span>✦</span><span>★</span>
@@ -172,6 +186,6 @@
         </div>
       </section>
     </main>
-    <script src="script.js?v=54"></script>
+    <script src="script.js?v=55"></script>
   </body>
 </html>

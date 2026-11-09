@@ -65,6 +65,22 @@ body.night .night-sky { opacity: 1; }
 .night-sky .moon { position: absolute; top: 7%; right: 8%; width: 74px; height: 74px; border-radius: 50%; background: #f6ebc8; box-shadow: -18px -10px 0 8px #11152f inset, 0 0 40px 14px #f6ebc833, 0 0 90px 40px #f6ebc81a; }
 .night-sky .nstar { position: absolute; color: #d9d4f3; font-size: var(--s); left: var(--x); top: var(--y); animation: twinkle 3s ease-in-out infinite; animation-delay: var(--delay); }
 .card { z-index: 1; }
+/* Нууц код */
+.lock { position: relative; }
+.lock-icon { color: var(--gold); font-size: 40px; line-height: 1; animation: twinkle 2.2s ease-in-out infinite; }
+.lock h2 { margin-top: 8px; font-size: clamp(44px, 7.4vw, 60px); }
+.lock-hint { margin: 12px 0 20px; color: #765c66; font-size: 13px; }
+.lock-form { display: flex; justify-content: center; align-items: center; gap: 10px; }
+.code-input { width: 150px; height: 52px; padding: 0 10px; border: 1px solid #f4dce3; border-radius: 16px; background: #fff; color: var(--ink); font-family: Manrope, sans-serif; font-size: 26px; font-weight: 700; letter-spacing: 10px; text-align: center; outline: none; transition: border-color .2s, box-shadow .2s; }
+.code-input:focus { border-color: var(--rose); box-shadow: 0 0 0 3px #e86c8822; }
+.code-input::placeholder { color: #e3c6cf; letter-spacing: 6px; }
+.lock-form .continue { margin-top: 0; }
+.lock-status { min-height: 18px; margin: 14px 0 0; color: #b07f8e; font-size: 12.5px; }
+.lock-form.shake { animation: shake .45s ease; }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-8px); } 40% { transform: translateX(8px); } 60% { transform: translateX(-5px); } 80% { transform: translateX(5px); } }
+body.night .code-input { border-color: #2f3666; background: #222850; color: var(--ink); }
+body.night .code-input::placeholder { color: #5b6291; }
+body.night .lock-hint, body.night .lock-status { color: #b4b6d6; }
 /* Swipe үед карт дагаж хөдөлнө */
 .card.dragging { transition: none; }
 /* Хазайлтын parallax */

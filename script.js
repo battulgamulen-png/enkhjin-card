@@ -1,3 +1,4 @@
+const lock = document.querySelector('#lock');
 const welcome = document.querySelector('#welcome');
 const zodiac = document.querySelector('#zodiac');
 const farewell = document.querySelector('#farewell');
@@ -426,20 +427,55 @@ const typewrite = (element) => {
 };
 let titleTyped = false;
 
-// Түгжээгүй: нээгдэнгүүт гарчгийг бичиж, муурыг гаргаж, орсныг мэдэгдэнэ
-window.addEventListener('load', () => {
+// Нууц код: SHA-256 hash-тай харьцуулна, код өөрөө кодонд байхгүй
+const CODE_HASH = '6711597a2bc4e5878638c2115353f0792a9bec6ff55a84f283c4be5d897fe110';
+const lockForm = document.querySelector('#lockForm');
+const codeInput = document.querySelector('#codeInput');
+const lockStatus = document.querySelector('#lockStatus');
+const sha256 = async (text) => {
+  const bytes = new TextEncoder().encode(text);
+  const digest = await crypto.subtle.digest('SHA-256', bytes);
+  return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, '0')).join('');
+};
+codeInput.addEventListener('input', () => {
+  codeInput.value = codeInput.value.replace(/\D/g, '').slice(0, 4);
+  lockStatus.textContent = '';
+  if (codeInput.value.length === 4) lockForm.requestSubmit();
+});
+lockForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const code = codeInput.value.trim();
+  if (code.length === 4) requestTilt();
+  if (code.length < 4) {
+    lockStatus.textContent = '4 оронтой тоо оруулаарай';
+    return;
+  }
+  let ok = false;
+  try {
+    ok = (await sha256(code)) === CODE_HASH;
+  } catch {
+    lockStatus.textContent = 'Хөтөч дэмжихгүй байна, өөр хөтчөөр нээгээрэй';
+    return;
+  }
+  if (!ok) {
+    lockForm.classList.remove('shake');
+    void lockForm.offsetWidth;
+    lockForm.classList.add('shake');
+    lockStatus.textContent = 'Буруу код байна, дахин бодоод үзээрэй ✦';
+    codeInput.select();
+    return;
+  }
+  lockStatus.textContent = '';
+  codeInput.blur();
   notifyVisit();
+  enableNotifications();
   if (!titleTyped) {
     titleTyped = true;
     typewrite(welcomeTitle);
   }
+  goToPage(lock, welcome);
   setTimeout(showMascot, 600);
 });
-// Мэдэгдлийн зөвшөөрөл, хазайлтын зөвшөөрөл нь хэрэглэгчийн товшилт шаарддаг тул эхний товшилтоор асууна
-document.addEventListener('click', () => {
-  enableNotifications();
-  requestTilt();
-}, { once: true });
 
 // Од, зүрх бууж унах
 const random = (min, max) => min + Math.random() * (max - min);
@@ -693,7 +729,7 @@ secretStar.addEventListener('click', () => {
 const PAGES = [welcome, zodiac, farewell, weather, reply];
 const currentPage = () => PAGES.find((page) => !page.classList.contains('hidden'));
 const movePage = (direction) => {
-  if (isFlipping) return;
+  if (isFlipping || !lock.classList.contains('hidden')) return;
   const from = currentPage();
   const index = PAGES.indexOf(from);
   const to = PAGES[index + direction];
@@ -705,7 +741,7 @@ const movePage = (direction) => {
 let swipe = null;
 const startSwipe = (x, y, target) => {
   swipe = null;
-  if (isFlipping) return;
+  if (!lock.classList.contains('hidden') || isFlipping) return;
   if (target.closest('textarea, input, .weather-hours, .playlist-nav')) return;
   swipe = { x, y, dx: 0, moved: false };
 };
