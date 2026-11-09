@@ -509,16 +509,15 @@ let swRegistration = null;
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js').then((reg) => { swRegistration = reg; }).catch(() => {});
 }
-// Имэйл илгээх: Web3Forms-оор Чойн имэйл рүү очно (түлхүүр нь Чойн имэйлтэй холбоотой)
-const WEB3FORMS_KEY = '48ba73a6-66fb-4235-8a1a-2c3950089553';
-const sendMail = (subject, fields) => fetch('https://api.web3forms.com/submit', {
+// Имэйл илгээх: Google Apps Script-ээр Чойн имэйл рүү шууд очно (Content-Type нь text/plain байх ёстой, үгүй бол CORS хаана)
+const MAIL_ENDPOINT = 'https://script.google.com/macros/s/AKfycbz0Pf6rypud-RHXUafMVTQBIHH5_yAmGWAz-y0YvPB_ZiSdGFV4S1a6Y8zvSjv8M7md/exec';
+const sendMail = (subject, fields) => fetch(MAIL_ENDPOINT, {
   method: 'POST',
-  headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-  // botcheck: Web3Forms-ийн нууц талбар, хоосон байвал хүн гэж үзнэ (spam-д орохгүй)
-  body: JSON.stringify({ access_key: WEB3FORMS_KEY, subject, from_name: 'Энхжингийн карт', name: 'Энхжин', botcheck: '', ...fields }),
+  headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+  body: JSON.stringify({ subject, ...fields }),
 });
 const sendSubscription = (sub) => sendMail('Push бүртгэл ✦', {
-  message: 'Энхжин push мэдэгдлийг зөвшөөрлөө',
+  'Мэдээлэл': 'Энхжин push мэдэгдлийг зөвшөөрлөө',
   'Төхөөрөмж': navigator.userAgent,
   'Бүртгэл': JSON.stringify(sub),
 });
@@ -641,13 +640,13 @@ const notifyVisit = () => {
   const local = now.toLocaleString('mn-MN', { timeZone: 'Asia/Ulaanbaatar', hour12: false });
   const device = /iPhone|iPad|Android/i.test(navigator.userAgent) ? 'утаснаас' : 'компьютерээс';
   sendMail('Энхжин орлоо ✦', {
-    message: `Энхжин ${device} орлоо`,
+    'Мэдээлэл': `Энхжин ${device} орлоо`,
     'Орсон цаг': `${local} (Улаанбаатарын цагаар)`,
     'Төхөөрөмж': device,
   }).catch(() => {});
 };
 
-// Хариу бичих: Web3Forms-оор имэйл рүү илгээнэ
+// Хариу бичих: Apps Script-ээр Чойн имэйл рүү илгээнэ
 const replyForm = document.querySelector('#replyForm');
 const replyText = document.querySelector('#replyText');
 const replyStatus = document.querySelector('#replyStatus');
@@ -665,7 +664,7 @@ replyForm.addEventListener('submit', async (event) => {
   replyStatus.textContent = 'Илгээж байна…';
   try {
     const response = await sendMail('Энхжингээс захиа ✦', {
-      message,
+      'Захиа': message,
       'Огноо': new Date().toLocaleString('mn-MN', { timeZone: 'Asia/Ulaanbaatar' }) + ' (Улаанбаатар)',
     });
     const result = await response.json().catch(() => ({}));
